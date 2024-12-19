@@ -1,0 +1,15 @@
+[package]
+name = "tokio_server"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1.0", features = ["full"] }
+hyper = { version = "0.14", features = ["server", "http1", "tcp"] } # Enable the `server` feature
+serde = { version = "1.0", features = ["derive"] }
+rdkafka = "0.29"
+serde_json = "1.0.133" # For Kafka
+testcontainers = "0.14"
+

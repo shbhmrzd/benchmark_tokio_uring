@@ -1,0 +1,26 @@
+[package]
+name = "async_benchmark"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+members = [
+    "tokio_server",
+    "io_uring_server", "io_uring_feedback",
+]
+
+
+[dependencies]
+criterion = "0.4"                          # Criterion for benchmarking
+hyper = { version = "0.14", features = ["client", "http1", "tcp"] } # Enable Client in hyper
+tokio = { version = "1.0", features = ["full"] }
+futures = "0.3.31"            # Full Tokio runtime
+sysinfo = "0.29"
+
+[dev-dependencies]
+criterion = "0.4"
+
+[[bench]]
+name = "benchmark"
+harness = false

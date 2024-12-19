@@ -1,0 +1,21 @@
+[package]
+name = "io_uring_feedback"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+hyper = { version = "0.14", features = ["server", "http1", "tcp"] } # Enable the `server` feature
+serde = { version = "1.0", features = ["derive"] }
+rdkafka = "0.29"
+tokio = { version = "1.0", features = ["full"] }
+serde_json = "1.0.133"
+tokio-uring = "0.5.0"
+testcontainers = "0.14"
+bytes = "1.8.0"
+
+
+
+
+
