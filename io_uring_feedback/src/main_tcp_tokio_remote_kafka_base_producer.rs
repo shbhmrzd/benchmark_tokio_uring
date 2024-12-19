@@ -11,11 +11,8 @@ use tokio::time;
 #[path = "../../infra/app_error.rs"]
 mod app_error;
 
-// const KAFKA_TOPIC: &str = "sessionlet-completion-tlb2-aa-scalable-pt1m-dev";
-// const KAFKA_BROKER: &str = "rccp103-9e.iad3.prod.conviva.com:32300";
-
-const KAFKA_TOPIC: &str = "sessionlet-completion-tlb2-aa-scalable-pt1m-dev";
-const KAFKA_BROKER: &str = "10.30.122.111:31210";
+const KAFKA_TOPIC: &str = "kafka-topic";
+const KAFKA_BROKER: &str = "kafka-broker";
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Payload {
@@ -204,7 +201,7 @@ Upper bound = 4656.2ops/sec
 /*
 4 core machine
 
-kcat -b 10.30.122.111:31210 -t sessionlet-completion-tlb2-aa-scalable-pt1m-dev -C -o end
+kcat -b kafka-broker -t kafka-topic -C -o end
 3000 requests per iteration
 
 System Information:

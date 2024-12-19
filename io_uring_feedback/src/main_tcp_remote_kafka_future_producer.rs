@@ -9,9 +9,8 @@ use tokio_uring::net::{TcpListener, TcpStream};
 #[path = "../../infra/app_error.rs"]
 mod app_error;
 
-const KAFKA_TOPIC: &str = "sessionlet-completion-tlb2-aa-scalable-pt1m-dev";
-const KAFKA_BROKER: &str = "10.30.122.111:31210";
-
+const KAFKA_TOPIC: &str = "kafka-topic";
+const KAFKA_BROKER: &str = "kafka-broker";
 #[derive(Serialize, Deserialize, Debug)]
 struct Payload {
     data: String,
@@ -183,8 +182,6 @@ async fn write_to_stream(stream: &mut TcpStream, response: &[u8]) -> std::io::Re
 }
 
 /*
-kafkacat -b rccp103-9e.iad3.prod.conviva.com:32300 -t sessionlet-completion-tlb2-aa-scalable-pt1m-dev -C -o end
-
 Benchmark results
 
 Benchmarking io_uring_feedback_throughput_benchmark: Collecting 11 samples in estimated

@@ -10,13 +10,8 @@ use tokio_uring::net::{TcpListener, TcpStream};
 #[path = "../../infra/app_error.rs"]
 mod app_error;
 
-// const KAFKA_TOPIC: &str = "aa-completion-flag-pt1m-fat";
-// const KAFKA_BROKER: &str = "rccd101-6a.sjc2.dev.conviva.com:32511,rccd101-6b.sjc2.dev.conviva.com:32511,rccd101-6c.sjc2.dev.conviva.com:32511,rccd101-7a.sjc2.dev.conviva.com:32511";
-// const KAFKA_TOPIC: &str = "sessionlet-completion-tlb2-aa-scalable-pt1m-dev";
-// const KAFKA_BROKER: &str = "rccp103-9e.iad3.prod.conviva.com:32300";
-const KAFKA_TOPIC: &str = "sessionlet-completion-tlb2-aa-scalable-pt1m-dev";
-const KAFKA_BROKER: &str = "10.30.122.111:31210";
-
+const KAFKA_TOPIC: &str = "kafka-topic";
+const KAFKA_BROKER: &str = "kafka-broker";
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Payload {
@@ -209,20 +204,8 @@ async fn write_to_stream(stream: &mut TcpStream, response: &[u8]) -> std::io::Re
 
 /*
 
-From the cluster rke-tlb-1.iad3.qe2.conviva.com and tlb2-aa-fat
-
-"rccd101-6a.sjc2.dev.conviva.com:32511,rccd101-6b.sjc2.dev.conviva.com:32511,rccd101-6c.sjc2.dev.conviva.com:32511,rccd101-7a.sjc2.dev.conviva.com:32511"
-"aa-completion-flag-pt1m-fat"
-
-
-
-kafkacat -b rccd101-6a.sjc2.dev.conviva.com:32511,rccd101-6b.sjc2.dev.conviva.com:32511,rccd101-6c.sjc2.dev.conviva.com:32511,rccd101-7a.sjc2.dev.conviva.com:32511 -t aa-completion-flag-pt1m-fat -C -o end
-
 
 From the cluster
-
-kafkacat -b rccp103-9e.iad3.prod.conviva.com:32300 -t sessionlet-completion-tlb2-aa-scalable-pt1m-dev -C -o end
-
 
 System Information:
   Total Memory: 3913.26 GB
@@ -278,8 +261,6 @@ io_uring_feedback_throughput_benchmark
 Found 1 outliers among 11 measurements (9.09%)
   1 (9.09%) high severe
 
-kafkacat -b rccp103-9e.iad3.prod.conviva.com:32300 -t sessionlet-completion-tlb2-aa-scalable-pt1m-dev -C -o end
-
 Throughput for 1000 requests:
 
 Minimum time (356.16 ms):
@@ -300,9 +281,6 @@ Now ulimit -n 65536
 
 100 seconds
 
-
-
-kcat -b 10.30.122.111:31210 -t sessionlet-completion-tlb2-aa-scalable-pt1m-dev -C -o end
 
 Benchmarking io_uring_feedback_throughput_benchmark: Warming up for
 Benchmarking io_uring_feedback_throughput_benchmark: Collecting 11
@@ -331,7 +309,6 @@ ulimit -n 65536
 
 4 core machine
 
-kcat -b 10.30.122.111:31210 -t sessionlet-completion-tlb2-aa-scalable-pt1m-dev -C -o end
 3000 requests per iteration
 
 System Information:

@@ -6,7 +6,9 @@ use std::convert::Infallible;
 use std::sync::Arc;
 
 // Kafka topic
-const KAFKA_TOPIC: &str = "sessionlet-completion-tlb2-aa-scalable-pt1m-dev";
+const KAFKA_TOPIC: &str = "kafka-topic";
+const KAFKA_BROKER: &str = "kafka-broker";
+
 
 // HTTP request handler
 async fn handle_request(
@@ -49,7 +51,7 @@ fn main() {
         let producer: FutureProducer = ClientConfig::new()
             .set(
                 "bootstrap.servers",
-                "rccp103-9e.iad3.prod.conviva.com:32300",
+                KAFKA_BROKER,
             )
             .set("message.timeout.ms", "5000") // Kafka message timeout
             .set("linger.ms", "5") // Wait 5ms for batching

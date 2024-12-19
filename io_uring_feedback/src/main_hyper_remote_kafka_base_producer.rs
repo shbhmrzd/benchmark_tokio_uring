@@ -12,6 +12,10 @@ use tokio::time::interval;
 const MAX_BATCH_SIZE: usize = 100; // Maximum number of messages per batch
 const FLUSH_INTERVAL_MS: u64 = 10; // Flush interval for Kafka producer in milliseconds
 
+const KAFKA_TOPIC: &str = "kafka-topic";
+const KAFKA_BROKER: &str = "kafka-broker";
+
+
 // Function to flush batched Kafka messages
 fn flush_to_kafka(producer: &BaseProducer, topic: &str, messages: Vec<Vec<u8>>) {
     for payload in messages {
@@ -93,7 +97,7 @@ fn main() {
         let producer: BaseProducer = ClientConfig::new()
             .set(
                 "bootstrap.servers",
-                "rccp103-9e.iad3.prod.conviva.com:32300",
+                KAFKA_BROKER,
             )
             .set("message.timeout.ms", "5000") // Timeout for Kafka acknowledgments
             .set("linger.ms", "5") // Enable batching
@@ -110,7 +114,7 @@ fn main() {
         let producer_arc = Arc::new(producer);
         tokio_uring::spawn(kafka_batch_sender(
             producer_arc.clone(),
-            "sessionlet-completion-tlb2-aa-scalable-pt1m-dev".to_string(),
+            KAFKA_TOPIC.to_string(),
             batch_sender_buffer,
         ));
 

@@ -7,7 +7,8 @@ use std::sync::Arc;
 use tokio_uring::start as tokio_uring_start;
 
 // Kafka topic
-const KAFKA_TOPIC: &str = "sessionlet-completion-tlb2-aa-scalable-pt1m-dev";
+const KAFKA_TOPIC: &str = "kafka-topic";
+const KAFKA_BROKER: &str = "kafka-broker";
 
 // HTTP request handler
 async fn handle_request(
@@ -49,7 +50,7 @@ async fn main() {
     let producer: FutureProducer = ClientConfig::new()
         .set(
             "bootstrap.servers",
-            "rccp103-9e.iad3.prod.conviva.com:32300",
+            KAFKA_BROKER,
         )
         .set("message.timeout.ms", "5000") // Kafka message timeout
         .set("linger.ms", "5") // Wait 5ms for batching
@@ -83,8 +84,6 @@ async fn main() {
 }
 
 /*
-kafkacat -b rccp103-9e.iad3.prod.conviva.com:32300 -t sessionlet-completion-tlb2-aa-scalable-pt1m-dev -C -o end
-
 hread 'tokio-runtime-worker' panicked at /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-uring-0.5.0/src/runtime/mod.rs:130:14:
 Cannot start a runtime from within a runtime. This happens because a function (like `block_on`) attempted to block the current thread while the thread is being used to drive asynchronous tasks.
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
